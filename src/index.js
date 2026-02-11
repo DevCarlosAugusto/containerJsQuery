@@ -1,31 +1,44 @@
 /**
- * Definição dos breakpoints de container.
  * @typedef {Object.<string, number>} Breakpoints
  */
 
 /**
- * Simula CSS Container Queries aplicando atributos de dados baseados na largura do elemento.
- * * @param {HTMLElement} element - O elemento DOM a ser monitorado.
- * @param {Breakpoints} breakpoints - Objeto com nomes e larguras mínimas (ex: { md: 600 }).
- * @returns {() => void} Função para desconectar o observer (cleanup).
+ * @typedef {Object} QueryOptions
+ * @property {string} [prefix='container-'] - Prefixo para a classe ou atributo.
+ * @property {'class'|'attribute'} [strategy='attribute'] - Onde aplicar a marcação.
  */
-export function containerJsQuery(element, breakpoints) {
+
+/**
+ * Monitora um elemento e aplica classes/atributos baseados em breakpoints.
+ * @param {HTMLElement} element - Elemento a ser monitorado.
+ * @param {Breakpoints} breakpoints - Definições de tamanhos (ex: { md: 600 }).
+ * @param {QueryOptions} [options={}] - Configurações extras.
+ * @returns {() => void} Cleanup function.
+ */
+export function containerJsQuery(element, breakpoints, options = {}) {
+  const { prefix = 'container-', strategy = 'attribute' } = options;
+
   if (!element || typeof window === 'undefined' || !window.ResizeObserver) {
     return () => {};
   }
 
   const observer = new ResizeObserver((entries) => {
     window.requestAnimationFrame(() => {
-      if (!Array.isArray(entries) || !entries.length) return;
-
-      const width = entries[0].contentRect.width;
+      if (!entries.length) return;
+      const { width } = entries[0].contentRect;
 
       Object.entries(breakpoints).forEach(([name, minWidth]) => {
-        const attr = `data-container-${name}`;
-        if (width >= minWidth) {
-          if (!element.hasAttribute(attr)) element.setAttribute(attr, '');
+        const marker = `${prefix}${name}`;
+        const shouldApply = width >= minWidth;
+
+        if (strategy === 'class') {
+          element.classList.toggle(marker, shouldApply);
         } else {
-          if (element.hasAttribute(attr)) element.removeAttribute(attr);
+          if (shouldApply) {
+            if (!element.hasAttribute(`data-${marker}`)) element.setAttribute(`data-${marker}`, '');
+          } else {
+            element.removeAttribute(`data-${marker}`);
+          }
         }
       });
     });

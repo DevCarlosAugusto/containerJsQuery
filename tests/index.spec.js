@@ -1,4 +1,5 @@
 import { containerJsQuery } from '../src/index.js'
+import { vi, describe, it, expect, beforeEach } from 'vitest'
 
 describe('containerJsQuery Library', () => {
   let element
@@ -7,7 +8,8 @@ describe('containerJsQuery Library', () => {
   beforeEach(() => {
     element = document.createElement('div')
 
-    // Mock do ResizeObserver para o Vitest
+    vi.stubGlobal('requestAnimationFrame', (cb) => cb())
+
     global.ResizeObserver = class {
       constructor(cb) { observerCallback = cb }
       observe() {}
@@ -15,16 +17,15 @@ describe('containerJsQuery Library', () => {
     }
   })
 
-  it('deve aplicar atributos baseados na largura', async () => {
-    const breakpoints = { md: 500 }
-    containerJsQuery(element, breakpoints)
-
-    // Simula a mudança de tamanho
+  it('deve aplicar classes específicas quando a estratégia for "class"', () => {
+    containerJsQuery(element, { md: 500 }, { strategy: 'class', prefix: 'Button--' })
     observerCallback([{ contentRect: { width: 600 }, target: element }])
+    expect(element.classList.contains('Button--md')).toBe(true)
+  })
 
-    // No Vitest/Vite, aguardamos o próximo tick para garantir que o rAF executou
-    await new Promise(res => setTimeout(res, 0))
-
+  it('deve manter o comportamento de atributo por padrão', () => {
+    containerJsQuery(element, { md: 500 })
+    observerCallback([{ contentRect: { width: 600 }, target: element }])
     expect(element.hasAttribute('data-container-md')).toBe(true)
   })
 })
