@@ -1,18 +1,28 @@
 {
   "name": "container_js_query",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "a javascript package to use css @container queries",
   "main": "index.js",
   "scripts": {
     "test": "vitest run",
     "test:watch": "vitest",
-    "build": "tsup src/index.js --format cjs,esm --dts"
+    "build": "tsup src/index.js --format cjs,esm --dts",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "author": "DevCarlosAugusto",
   "license": "MIT",
   "devDependencies": {
+    "@semantic-release/github": "^11.0.6",
+    "@semantic-release/npm": "^12.0.2",
     "@vitest/browser": "^4.0.18",
+    "eslint": "^10.0.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
     "jsdom": "^28.0.0",
+    "prettier": "^3.8.1",
+    "semantic-release": "^24.2.9",
     "tsup": "^8.5.1",
     "typescript": "^5.9.3",
     "vitest": "^4.0.18"
