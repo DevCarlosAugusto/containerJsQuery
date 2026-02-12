@@ -46,8 +46,8 @@ Utilize `ref` para capturar o elemento e os hooks de ciclo de vida para gerencia
 
 ```vue
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from "vue";
-import { containerJsQuery } from "container-js-query";
+import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { containerJsQuery } from 'container-js-query';
 
 const containerRef = ref(null);
 let stopQuery;
@@ -60,7 +60,7 @@ onMounted(() => {
       sm: 300,
       md: 700,
     },
-    { strategy: "class", prefix: "Drawer--" },
+    { strategy: 'class', prefix: 'Drawer--' }
   );
 });
 
@@ -88,7 +88,7 @@ Em Svelte, a forma mais eficiente é utilizar uma Action, que lida automaticamen
 
 ```html
 <script>
-  import { containerJsQuery } from "container-js-query";
+  import { containerJsQuery } from 'container-js-query';
 
   function containerAction(node) {
     const stop = containerJsQuery(
@@ -97,7 +97,7 @@ Em Svelte, a forma mais eficiente é utilizar uma Action, que lida automaticamen
         mobile: 320,
         tablet: 768,
       },
-      { strategy: "class", prefix: "widget-" },
+      { strategy: 'class', prefix: 'widget-' }
     );
 
     return {
@@ -127,8 +127,8 @@ Em Svelte, a forma mais eficiente é utilizar uma Action, que lida automaticamen
 Combine `useRef` e `useEffect` para inicializar a biblioteca e garantir que o cleanup seja executado ao desmontar.
 
 ```jsx
-import { useEffect, useRef } from "react";
-import { containerJsQuery } from "container-js-query";
+import { useEffect, useRef } from 'react';
+import { containerJsQuery } from 'container-js-query';
 
 export const Box = ({ children }) => {
   const boxRef = useRef(null);
@@ -139,7 +139,7 @@ export const Box = ({ children }) => {
       {
         wide: 500,
       },
-      { strategy: "class", prefix: "Box--" },
+      { strategy: 'class', prefix: 'Box--' }
     );
 
     return () => cleanup();
@@ -164,15 +164,15 @@ import {
   ViewChild,
   AfterViewInit,
   OnDestroy,
-} from "@angular/core";
-import { containerJsQuery } from "container-js-query";
+} from '@angular/core';
+import { containerJsQuery } from 'container-js-query';
 
 @Component({
-  selector: "app-card",
+  selector: 'app-card',
   template: `<div #cardElement class="card-container">...</div>`,
 })
 export class CardComponent implements AfterViewInit, OnDestroy {
-  @ViewChild("cardElement") cardElement!: ElementRef;
+  @ViewChild('cardElement') cardElement!: ElementRef;
   private stop?: () => void;
 
   ngAfterViewInit() {
@@ -181,7 +181,7 @@ export class CardComponent implements AfterViewInit, OnDestroy {
       {
         full: 800,
       },
-      { strategy: "attribute", prefix: "card-" },
+      { strategy: 'attribute', prefix: 'card-' }
     );
   }
 
@@ -196,12 +196,12 @@ export class CardComponent implements AfterViewInit, OnDestroy {
 Em componentes Lit (Web Components), o método `firstUpdated` é o local correto para iniciar observadores de DOM.
 
 ```js
-import { LitElement, html } from "lit";
-import { query } from "lit/decorators.js";
-import { containerJsQuery } from "container-js-query";
+import { LitElement, html } from 'lit';
+import { query } from 'lit/decorators.js';
+import { containerJsQuery } from 'container-js-query';
 
 class MyButton extends LitElement {
-  @query(".btn-wrapper") _btn;
+  @query('.btn-wrapper') _btn;
 
   firstUpdated() {
     this._cleanup = containerJsQuery(
@@ -209,7 +209,7 @@ class MyButton extends LitElement {
       {
         large: 400,
       },
-      { strategy: "class", prefix: "btn-" },
+      { strategy: 'class', prefix: 'btn-' }
     );
   }
 
@@ -222,7 +222,7 @@ class MyButton extends LitElement {
     return html`<div class="btn-wrapper"><button>Click Me</button></div>`;
   }
 }
-customElements.define("my-button", MyButton);
+customElements.define('my-button', MyButton);
 ```
 
 ## 🎨 Exemplos de CSS

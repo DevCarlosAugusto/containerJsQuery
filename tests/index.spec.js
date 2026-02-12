@@ -1,14 +1,14 @@
-import { containerJsQuery } from "../src/index.js";
-import { vi, describe, it, expect, beforeEach } from "vitest";
+import { containerJsQuery } from '../src/index.js';
+import { vi, describe, it, expect, beforeEach } from 'vitest';
 
-describe("containerJsQuery Library", () => {
+describe('containerJsQuery Library', () => {
   let element;
   let observerCallback;
 
   beforeEach(() => {
-    element = document.createElement("div");
+    element = document.createElement('div');
 
-    vi.stubGlobal("requestAnimationFrame", (cb) => cb());
+    vi.stubGlobal('requestAnimationFrame', (cb) => cb());
 
     global.ResizeObserver = class {
       constructor(cb) {
@@ -23,15 +23,15 @@ describe("containerJsQuery Library", () => {
     containerJsQuery(
       element,
       { md: 500 },
-      { strategy: "class", prefix: "Button--" },
+      { strategy: 'class', prefix: 'Button--' }
     );
     observerCallback([{ contentRect: { width: 600 }, target: element }]);
-    expect(element.classList.contains("Button--md")).toBe(true);
+    expect(element.classList.contains('Button--md')).toBe(true);
   });
 
-  it("deve manter o comportamento de atributo por padrão", () => {
+  it('deve manter o comportamento de atributo por padrão', () => {
     containerJsQuery(element, { md: 500 });
     observerCallback([{ contentRect: { width: 600 }, target: element }]);
-    expect(element.hasAttribute("data-container-md")).toBe(true);
+    expect(element.hasAttribute('data-container-md')).toBe(true);
   });
 });

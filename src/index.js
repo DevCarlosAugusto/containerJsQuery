@@ -16,9 +16,9 @@
  * @returns {() => void} Cleanup function.
  */
 export function containerJsQuery(element, breakpoints, options = {}) {
-  const { prefix = "container-", strategy = "attribute" } = options;
+  const { prefix = 'container-', strategy = 'attribute' } = options;
 
-  if (!element || typeof window === "undefined" || !window.ResizeObserver) {
+  if (!element || typeof window === 'undefined' || !window.ResizeObserver) {
     return () => {};
   }
 
@@ -31,12 +31,12 @@ export function containerJsQuery(element, breakpoints, options = {}) {
         const marker = `${prefix}${name}`;
         const shouldApply = width >= minWidth;
 
-        if (strategy === "class") {
+        if (strategy === 'class') {
           element.classList.toggle(marker, shouldApply);
         } else {
           if (shouldApply) {
             if (!element.hasAttribute(`data-${marker}`))
-              element.setAttribute(`data-${marker}`, "");
+              element.setAttribute(`data-${marker}`, '');
           } else {
             element.removeAttribute(`data-${marker}`);
           }
