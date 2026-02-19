@@ -39,25 +39,25 @@ jobs:
       - name: Build Package
         run: npm run build
 
-  publish_to_npm:
-    name: 🚀 Publish to NPM
+  publish:
+    name: 🚀 Publish to NPM & GitHub
     needs: test_and_build
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
 
     permissions:
       contents: write
+      packages: write
       id-token: write
 
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Necessário para fazer push da tag de versão
+          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
-          registry-url: 'https://registry.npmjs.org'
 
       - name: Install and Build
         run: |
@@ -72,6 +72,13 @@ jobs:
           git push origin main --tags
 
       - name: Publish to NPM
-        run: npm publish --access public
+        run: npm publish --access public --registry=https://registry.npmjs.org
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish to GitHub Packages
+        run: |
+          npm pkg set name="@devcarlosaugusto/container-media-observer"
+          npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

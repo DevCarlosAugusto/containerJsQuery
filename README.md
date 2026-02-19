@@ -1,8 +1,13 @@
-# container-js-query 🚀
+# container-media-observer 🚀
 
 Uma biblioteca leve, performática e agnóstica para simular **CSS Container Queries** em qualquer ambiente JavaScript.
 
 Diferente das Media Queries tradicionais que dependem da largura da tela (viewport), esta biblioteca permite que seus componentes reajam ao tamanho do seu **próprio container**, garantindo modularidade real ao seu Design System.
+
+![NPM Version](https://img.shields.io/npm/v/container-media-observer?color=cb3837&style=flat-square)
+![NPM Downloads](https://img.shields.io/npm/dm/container-media-observer?style=flat-square)
+![License](https://img.shields.io/github/license/DevCarlosAugusto/container-media-polyfill?style=flat-square)
+![Build Status](https://img.shields.io/github/actions/workflow/status/DevCarlosAugusto/container-media-polyfill/main.yml?branch=main&style=flat-square)
 
 ---
 
@@ -18,7 +23,7 @@ Diferente das Media Queries tradicionais que dependem da largura da tela (viewpo
 ## 📦 Instalação
 
 ```bash
-npm install container-js-query
+npm install container-media-observer
 ```
 
 ---
@@ -47,7 +52,7 @@ Utilize `ref` para capturar o elemento e os hooks de ciclo de vida para gerencia
 ```vue
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue';
-import { containerJsQuery } from 'container-js-query';
+import { containerJsQuery } from 'container-media-observer';
 
 const containerRef = ref(null);
 let stopQuery;
@@ -88,7 +93,7 @@ Em Svelte, a forma mais eficiente é utilizar uma Action, que lida automaticamen
 
 ```html
 <script>
-  import { containerJsQuery } from 'container-js-query';
+  import { containerJsQuery } from 'container-media-observer';
 
   function containerAction(node) {
     const stop = containerJsQuery(
@@ -128,7 +133,7 @@ Combine `useRef` e `useEffect` para inicializar a biblioteca e garantir que o cl
 
 ```jsx
 import { useEffect, useRef } from 'react';
-import { containerJsQuery } from 'container-js-query';
+import { containerJsQuery } from 'container-media-observer';
 
 export const Box = ({ children }) => {
   const boxRef = useRef(null);
@@ -165,7 +170,7 @@ import {
   AfterViewInit,
   OnDestroy,
 } from '@angular/core';
-import { containerJsQuery } from 'container-js-query';
+import { containerJsQuery } from 'container-media-observer';
 
 @Component({
   selector: 'app-card',
@@ -198,7 +203,7 @@ Em componentes Lit (Web Components), o método `firstUpdated` é o local correto
 ```js
 import { LitElement, html } from 'lit';
 import { query } from 'lit/decorators.js';
-import { containerJsQuery } from 'container-js-query';
+import { containerJsQuery } from 'container-media-observer';
 
 class MyButton extends LitElement {
   @query('.btn-wrapper') _btn;
