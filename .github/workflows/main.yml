@@ -24,7 +24,7 @@ jobs:
         run: npm run lint
 
   test_and_build:
-    name: 🧪 Unit Tests
+    name: 🧪 Unit Tests & Build
     needs: quality_check
     runs-on: ubuntu-latest
     steps:
@@ -32,36 +32,55 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: 'npm'
       - name: Install dependencies
         run: npm ci
       - name: Run Vitest
         run: npm test -- --reporter=verbose --reporter=github-actions
       - name: Build Package
         run: npm run build
+      # Upload do build para ser usado no job de publish (evita rebuild)
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-files
+          path: dist/
 
-  publish_to_npm:
-    name: 🚀 Publish to NPM
+  release:
+    name: 🚀 Release & Publish
     needs: test_and_build
     runs-on: ubuntu-latest
+    # Só roda se for push na main e não for um PR
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
 
     permissions:
       contents: write
       id-token: write
+      issues: write
+      pull-requests: write
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false # Necessário para o semantic-release
+
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: 'npm'
           registry-url: 'https://registry.npmjs.org'
 
-      - name: Install and Build
-        run: |
-          npm ci
-          npm run build
+      - name: Install dependencies
+        run: npm ci
 
-      - name: Publish to NPM
-        run: npm publish --access public
+      - name: Download Build Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: dist-files
+          path: dist/
+
+      - name: Release and Publish to NPM
+        run: npx semantic-release
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

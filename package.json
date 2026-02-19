@@ -1,18 +1,43 @@
 {
-  "name": "container_js_query",
-  "version": "0.1.0",
-  "description": "a javascript package to use css @container queries",
-  "main": "index.js",
+  "name": "container-media-polyfill",
+  "version": "0.1.1",
+  "description": "A lightweight JavaScript polyfill to support CSS @container queries in older browsers.",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "test": "vitest run",
     "test:watch": "vitest",
     "build": "tsup src/index.js --format cjs,esm --dts",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "prepare": "npm run build"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DevCarlosAugusto/container-media-polyfill.git"
+  },
+  "keywords": [
+    "css",
+    "polyfill",
+    "container-queries",
+    "responsive-design",
+    "web-components",
+    "frontend"
+  ],
   "author": "DevCarlosAugusto",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DevCarlosAugusto/container-media-polyfill/issues"
+  },
+  "homepage": "https://github.com/DevCarlosAugusto/container-media-polyfill#readme",
+  "publishConfig": {
+    "access": "public"
+  },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@semantic-release/github": "^11.0.6",
