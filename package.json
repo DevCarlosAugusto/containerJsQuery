@@ -31,28 +31,15 @@
   ],
   "author": "DevCarlosAugusto",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/DevCarlosAugusto/container-media-polyfill/issues"
-  },
-  "homepage": "https://github.com/DevCarlosAugusto/container-media-polyfill#readme",
   "publishConfig": {
     "access": "public",
     "registry": "https://npm.pkg.github.com"
   },
   "devDependencies": {
-    "@eslint/js": "^10.0.1",
-    "@semantic-release/github": "^11.0.6",
-    "@semantic-release/npm": "^12.0.2",
-    "@vitest/browser": "^4.0.18",
-    "eslint": "^10.0.0",
-    "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-prettier": "^5.5.5",
-    "globals": "^17.3.0",
-    "jsdom": "^28.0.0",
-    "prettier": "^3.8.1",
-    "semantic-release": "^24.2.9",
     "tsup": "^8.5.1",
     "typescript": "^5.9.3",
-    "vitest": "^4.0.18"
+    "vitest": "^4.0.18",
+    "prettier": "^3.8.1",
+    "eslint": "^10.0.0"
   }
 }
