@@ -1,5 +1,5 @@
 {
-  "name": "@devcarlosaugusto/container-media-polyfill",
+  "name": "@dev_carlos_augusto/container-media-polyfill",
   "version": "0.1.1",
   "description": "A lightweight JavaScript polyfill to support CSS @container queries in older browsers.",
   "main": "./dist/index.js",
