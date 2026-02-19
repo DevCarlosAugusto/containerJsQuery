@@ -4,6 +4,11 @@ Uma biblioteca leve, performática e agnóstica para simular **CSS Container Que
 
 Diferente das Media Queries tradicionais que dependem da largura da tela (viewport), esta biblioteca permite que seus componentes reajam ao tamanho do seu **próprio container**, garantindo modularidade real ao seu Design System.
 
+![NPM Version](https://img.shields.io/npm/v/container-media-observer?color=cb3837&style=flat-square)
+![NPM Downloads](https://img.shields.io/npm/dm/container-media-observer?style=flat-square)
+![License](https://img.shields.io/github/license/DevCarlosAugusto/container-media-polyfill?style=flat-square)
+![Build Status](https://img.shields.io/github/actions/workflow/status/DevCarlosAugusto/container-media-polyfill/main.yml?branch=main&style=flat-square)
+
 ---
 
 ## ✨ Destaques
